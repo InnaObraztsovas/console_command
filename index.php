@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
-require 'Command.php';
-require_once 'Command1.php';
-require_once 'Command2.php';
-require_once 'Output.php';
-require_once 'ClassFactory.php';
+
+require_once './vendor/autoload.php';
+
+use App\ClassFactory;
+use App\Output;
 
 
-/**
- *
- */
 final class Aplication
 {
+    /**
+     * @throws ReflectionException
+     */
     public function run(array $input): int
     {
 

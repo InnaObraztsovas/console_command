@@ -1,11 +1,15 @@
 <?php
+declare(strict_types=1);
 
-class Command2 implements  Command
+namespace App;
+/**
+ *
+ */
+class Command1 implements Command
 {
-
     public function start(Output $output): int
     {
-        $output->view('Two');
+        $output->view('One');
         return 0;
         // TODO: Implement start() method.
     }

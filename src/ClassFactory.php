@@ -1,4 +1,9 @@
 <?php
+declare(strict_types=1);
+
+namespace App;
+
+use ReflectionClass;
 
 /**
  *
@@ -7,7 +12,9 @@ class ClassFactory
 {
 
     /**
-     * @throws ReflectionException
+     * @param $cls
+     * @return false|mixed
+     * @throws \ReflectionException
      */
     function getClassName($cls)
     {
