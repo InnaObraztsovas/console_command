@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App;
 
-require_once 'Command.php';
 
 use DirectoryIterator;
 use ReflectionClass;
@@ -28,7 +27,7 @@ class ClassFactory
                 return new $output;
             }
         }
-        return new \Exception('no');
+        return false;
     }
 
     private function getClassNames(): array
