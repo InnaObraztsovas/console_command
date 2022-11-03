@@ -28,7 +28,7 @@ class ClassFactory
                 return new $output;
             }
         }
-        return false;
+        return new \Exception('no');
     }
 
     private function getClassNames(): array
