@@ -6,8 +6,9 @@ namespace App;
 /**
  *
  */
-class Command2 implements  Command
+class Command2 implements Command
 {
+    public $close;
 
     public function start(Output $output): int
     {

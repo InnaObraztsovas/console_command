@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace App;
 
+require_once 'Command.php';
+
+use DirectoryIterator;
 use ReflectionClass;
 
 /**
@@ -10,18 +13,32 @@ use ReflectionClass;
  */
 class ClassFactory
 {
-
     /**
      * @param $cls
      * @return false|mixed
      * @throws \ReflectionException
      */
-    function getClassName($cls)
+    function runClass(string $cls)
     {
-        $class = new ReflectionClass($cls);
-        if ( $class->implementsInterface('Command') ) {
-            return new $cls;
+        $classes = $this->getClassNames();
+        foreach ($classes as $class) {
+            $reflect = new ReflectionClass($class);
+            if ($reflect->hasProperty($cls)) {
+                $output = $reflect->getName();
+                return new $output;
+            }
         }
         return false;
+    }
+
+    private function getClassNames(): array
+    {
+        $classes = [];
+        foreach (new DirectoryIterator(__DIR__) as $file) {
+            if ($file->isFile()) {
+                $classes[] = 'App\\' . $file->getBasename('.php');
+            }
+        }
+        return $classes;
     }
 }

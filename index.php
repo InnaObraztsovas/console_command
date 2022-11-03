@@ -7,6 +7,9 @@ use App\ClassFactory;
 use App\Output;
 
 
+/**
+ *
+ */
 final class Aplication
 {
     /**
@@ -14,9 +17,8 @@ final class Aplication
      */
     public function run(array $input): int
     {
-
         $command = new ClassFactory();
-        $class = $command->getClassName($input[1]);
+        $class = $command->runClass($input[1]);
         $class->start(new Output());
 
         return 0;
