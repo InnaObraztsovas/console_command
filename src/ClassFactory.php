@@ -16,14 +16,13 @@ class ClassFactory
 {
     /**
      * @param string $cls
-     * @return ReflectionClass
+     * @return Command
      * @throws ReflectionException
      * @throws Exception
      */
-    function runClass(string $cls): object
+    function runClass(string $cls): Command
     {
         $classes = $this->getClassNames();
-
         foreach ($classes as $class) {
             $reflect = new ReflectionClass($class);
             $attribute = $this->getValue($reflect);
@@ -35,15 +34,14 @@ class ClassFactory
         throw new Exception('The command is not found');
     }
 
-    private function getClassNames(): array
+
+    private function getClassNames(): iterable
     {
-        $classes = [];
         foreach (new DirectoryIterator(__DIR__) as $file) {
             if ($file->isFile()) {
-                $classes[] = 'App\\' . $file->getBasename('.php');
+                yield 'App\\' . $file->getBasename('.php');
             }
         }
-        return $classes;
     }
 
     /**
@@ -53,7 +51,7 @@ class ClassFactory
      */
     private function getValue(ReflectionClass $reflection)
     {
-        $attributes = $reflection->getAttributes();
+        $attributes = $reflection->getAttributes(CommandAttribute::class);
         foreach ($attributes as $attribute) {
             $arguments = $attribute->getArguments();
             return $arguments['value'] ?? throw new \Exception('Not found');

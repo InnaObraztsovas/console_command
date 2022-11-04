@@ -11,9 +11,9 @@ class CommandAttribute
     public string $value;
 
     /**
-     * @param $value
+     * @param string $value
      */
-    public function __construct($value)
+    public function __construct(string $value)
     {
         $this->value = $value;
     }
