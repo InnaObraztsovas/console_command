@@ -5,7 +5,9 @@ namespace App;
 
 
 use DirectoryIterator;
+use Exception;
 use ReflectionClass;
+use ReflectionException;
 
 /**
  *
@@ -13,11 +15,12 @@ use ReflectionClass;
 class ClassFactory
 {
     /**
-     * @param $cls
-     * @return false|mixed
-     * @throws \ReflectionException
+     * @param string $cls
+     * @return ReflectionClass
+     * @throws ReflectionException
+     * @throws Exception
      */
-    function runClass(string $cls)
+    function runClass(string $cls): object
     {
         $classes = $this->getClassNames();
 
@@ -29,7 +32,7 @@ class ClassFactory
                 return new $output;
             }
         }
-        return new \Exception('The command is not found');
+        throw new Exception('The command is not found');
     }
 
     private function getClassNames(): array
@@ -44,16 +47,16 @@ class ClassFactory
     }
 
     /**
-     * @param $reflection
-     * @param $class
-     * @return mixed|void
+     * @param ReflectionClass $reflection
+     * @return string
+     * @throws Exception
      */
-    private function getValue($reflection)
+    private function getValue(ReflectionClass $reflection)
     {
         $attributes = $reflection->getAttributes();
         foreach ($attributes as $attribute) {
             $arguments = $attribute->getArguments();
-            return $arguments['value'] ?? new \Exception('Not found');
+            return $arguments['value'] ?? throw new \Exception('Not found');
         }
     }
 }
