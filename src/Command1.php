@@ -5,9 +5,9 @@ namespace App;
 /**
  *
  */
+#[CommandAttribute(value: 'open')]
 class Command1 implements Command
 {
-    public $open;
 
     public function start(Output $output): int
     {

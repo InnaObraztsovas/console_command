@@ -19,11 +19,13 @@ final class Aplication
     {
         $command = new ClassFactory();
         $class = $command->runClass($input[1]);
-        $class->start(new Output());
-
+        try {
+            $class->start(new Output());
+        }catch (Throwable $e){
+           echo 'The command is not found';
+        }
         return 0;
     }
 
 }
-
 exit((new Aplication())->run($argv));

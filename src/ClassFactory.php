@@ -20,14 +20,16 @@ class ClassFactory
     function runClass(string $cls)
     {
         $classes = $this->getClassNames();
+
         foreach ($classes as $class) {
             $reflect = new ReflectionClass($class);
-            if ($reflect->hasProperty($cls)) {
+            $attribute = $this->getValue($reflect);
+            if ($attribute == $cls) {
                 $output = $reflect->getName();
                 return new $output;
             }
         }
-        return false;
+        return new \Exception('The command is not found');
     }
 
     private function getClassNames(): array
@@ -39,5 +41,19 @@ class ClassFactory
             }
         }
         return $classes;
+    }
+
+    /**
+     * @param $reflection
+     * @param $class
+     * @return mixed|void
+     */
+    private function getValue($reflection)
+    {
+        $attributes = $reflection->getAttributes();
+        foreach ($attributes as $attribute) {
+            $arguments = $attribute->getArguments();
+            return $arguments['value'] ?? new \Exception('Not found');
+        }
     }
 }
