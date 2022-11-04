@@ -10,7 +10,7 @@ use App\Output;
 /**
  *
  */
-final class Aplication
+final class Application
 {
     /**
      * @throws ReflectionException
@@ -28,4 +28,8 @@ final class Aplication
     }
 
 }
-exit((new Aplication())->run($argv));
+
+try {
+    exit((new Application())->run($argv));
+} catch (ReflectionException $e) {
+}

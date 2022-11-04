@@ -46,7 +46,7 @@ class ClassFactory
 
     /**
      * @param ReflectionClass $reflection
-     * @return string
+     * @return mixed|void
      * @throws Exception
      */
     private function getValue(ReflectionClass $reflection)
