@@ -29,7 +29,5 @@ final class Application
 
 }
 
-try {
     exit((new Application())->run($argv));
-} catch (ReflectionException $e) {
-}
+
