@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App;
@@ -9,7 +10,6 @@ namespace App;
 #[CommandAttribute(value: 'close')]
 class Command2 implements Command
 {
-
     public function start(Output $output): int
     {
         $output->view('Two');

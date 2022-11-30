@@ -14,7 +14,10 @@ final class Application
 {
     /**
      * @throws ReflectionException
+     * @param array <string> $input
      */
+
+
     public function run(array $input): int
     {
         $command = new ClassFactory();

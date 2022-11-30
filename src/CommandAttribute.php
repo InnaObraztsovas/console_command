@@ -17,5 +17,4 @@ class CommandAttribute
     {
         $this->value = $value;
     }
-
 }

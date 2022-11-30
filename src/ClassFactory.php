@@ -1,11 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App;
 
-
 use DirectoryIterator;
 use Exception;
+use Iterator;
 use ReflectionClass;
 use ReflectionException;
 
@@ -20,21 +21,25 @@ class ClassFactory
      * @throws ReflectionException
      * @throws Exception
      */
-    function runClass(string $cls): Command
+    public function runClass(string $cls): Command
     {
         $classes = $this->getClassNames();
         foreach ($classes as $class) {
+            /** @var object $class  */
             $reflect = new ReflectionClass($class);
             $attribute = $this->getValue($reflect);
             if ($attribute == $cls) {
                 $output = $reflect->getName();
-                return new $output;
+                /** @var Command $output */
+                return new $output();
             }
         }
         throw new Exception('The command is not found');
     }
 
-
+    /**
+     * @return Iterator
+     */
     private function getClassNames(): iterable
     {
         foreach (new DirectoryIterator(__DIR__) as $file) {
